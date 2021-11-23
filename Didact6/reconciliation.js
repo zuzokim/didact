@@ -103,7 +103,7 @@ function workLoop(deadline) {
     shouldYield = deadline.timeRemaining() < 1
   }
 
-  // 더이상 nextUnitOfWork가 없는 경우, 전체 fiber tree를 최종적으로 dom에 커밋
+  // 더이상 nextUnitOfWork가 없는 경우(return null), 전체 fiber tree를 최종적으로 dom에 커밋
   if(!nextUnitOfWork && workInProgressRoot){
     commitRoot();
   }
@@ -162,6 +162,7 @@ function performUnitOfWork(fiber) {
     }
     nextFiber = nextFiber.parent
   }
+  return null //!nextUnitOfWork
 }
 
 function reconcileChildren(wipFiber, elements){
